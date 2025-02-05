@@ -1,7 +1,13 @@
 const connect = require("../data/db")
 
 const index = (req, res) => {
-    res.send("server post")
+
+    const sql = "SELECT * FROM posts"
+    connect.query(sql, (err, results) => {
+        if (err) return res.status(500).json({ error: "Query al db fallita" })
+        res.json(results)
+
+    })
 }
 
 const show = (req, res) => {
