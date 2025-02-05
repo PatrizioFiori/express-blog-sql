@@ -31,7 +31,16 @@ const modify = (req, res) => {
 
 const destroy = (req, res) => {
     const id = req.params.id
-    res.send(`Elimina post ${id}`)
+
+    const sql = "DELETE FROM posts WHERE id = ?"
+    connect.query(sql, [id], (err, results) => {
+        if (err)
+            return res.status(500).json({ error: "DB query failed" })
+        if (results.affectedRows === 0)
+            return res.status(404).json({ err: "post not found" })
+        res.json({ message: `post con ${id} rimosso` })
+
+    })
 }
 
 module.exports = {
