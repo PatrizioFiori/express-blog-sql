@@ -1,3 +1,5 @@
+const connect = require("../data/db")
+
 const index = (req, res) => {
     res.send("server post")
 }
